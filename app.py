@@ -20,9 +20,9 @@ app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'  # Change this to a secure secret key in production
 
 # MongoDB connection
-client = MongoClient('mongodb://localhost:27017/')
-db = client['elearning_db']
-
+MONGO_URI = os.getenv('MONGO_URI')  # This picks up from Render's Environment variable
+client = MongoClient(MONGO_URI)
+db = client['elearning_db'] 
 # Create default admin user if none exists
 default_admin = {
     'name': 'Admin',
