@@ -1,0 +1,568 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - Educaation Arena{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Hero Section -->
+            <div class="text-center mb-5 about-hero" data-aos="fade-up">
+                <div class="hero-icon-wrapper mb-4">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1 class="display-4 fw-bold text-gradient">About Educaation Arena</h1>
+                <div class="border-bottom border-primary w-25 mx-auto my-4"></div>
+                <p class="lead animate-text">Empowering minds through quality education and practical learning experiences.</p>
+            </div>
+            
+            <!-- Founder Section -->
+            <div class="card mb-4 founder-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center mb-4 mb-md-0">
+                            <div class="founder-image-wrapper">
+                                <img src="{{ url_for('static', filename='images/founder.jpg') }}" 
+                                     class="rounded-circle img-fluid mb-3" 
+                                     alt="Amitesh Jha">
+                                <div class="founder-image-overlay"></div>
+                            </div>
+                            <h3 class="h5 mb-2 founder-name">Amitesh Jha</h3>
+                            <p class="text-muted mb-0 founder-role">Founder & Lead Instructor</p>
+                        </div>
+                        <div class="col-md-8">
+                            <h2 class="h4 mb-4 section-title">Our Story</h2>
+                            <p class="animate-text">Educaation Arena was founded by Amitesh Jha, a passionate educator and B.Tech student in Computer Science Engineering at CCSIT, TMU. What started as a vision to make quality education accessible to all has grown into a comprehensive learning platform that empowers students worldwide.</p>
+                            <p class="animate-text">Through his experience as both a student and educator, Amitesh identified the need for practical, hands-on learning in technology education. This led to the creation of Educaation Arena, where theory meets practice in an engaging learning environment.</p>
+                            <div class="mt-4">
+                                <a href="https://youtube.com/@educationarena2157?si=gUlAFiWqhiaAqbaM" 
+                                   target="_blank" 
+                                   class="btn btn-danger youtube-btn">
+                                    <i class="fab fa-youtube me-2"></i>Visit Our YouTube Channel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Section -->
+            <div class="card mb-4 mission-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-body">
+                    <h2 class="h4 mb-4 section-title">Our Mission</h2>
+                    <p class="animate-text">At Educaation Arena, our mission is to provide high-quality, accessible education to learners worldwide. We believe in empowering individuals with the knowledge and skills they need to succeed in today's digital world.</p>
+                    <div class="card bg-light border-0 mt-4 highlight-card">
+                        <div class="card-body">
+                            <h3 class="h5 mb-4 section-title">Educational Content Highlights:</h3>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="highlight-item" data-aos="fade-right">
+                                        <div class="highlight-icon">
+                                            <i class="fas fa-chart-bar"></i>
+                                        </div>
+                                        <div class="highlight-content">
+                                            <h4 class="h6 mb-2">NumPy Mastery</h4>
+                                            <p class="mb-0">Comprehensive tutorials on arrays, indexing, slicing, and practical applications.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="highlight-item" data-aos="fade-left">
+                                        <div class="highlight-icon">
+                                            <i class="fas fa-code"></i>
+                                        </div>
+                                        <div class="highlight-content">
+                                            <h4 class="h6 mb-2">Python Excellence</h4>
+                                            <p class="mb-0">From basics to advanced concepts including OOP, file handling, and modules.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Sets Us Apart Section -->
+            <div class="card mb-4 features-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-body">
+                    <h2 class="h4 mb-4 section-title">What Sets Us Apart</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="feature-item" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="feature-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3 class="h5 mb-2">Expert Instructors</h3>
+                                    <p class="mb-0">Learn from industry professionals with real-world experience.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="feature-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3 class="h5 mb-2">Practical Learning</h3>
+                                    <p class="mb-0">Hands-on projects and real-world applications.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="feature-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3 class="h5 mb-2">Flexible Learning</h3>
+                                    <p class="mb-0">Learn at your own pace, anytime and anywhere.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="feature-icon">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3 class="h5 mb-2">Certification</h3>
+                                    <p class="mb-0">Earn recognized certificates upon course completion.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Impact Section -->
+            <div class="card mb-4 impact-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="card-body">
+                    <h2 class="h4 mb-4 section-title">Our Impact</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4 text-center">
+                            <div class="impact-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="impact-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4 class="h5 counter">100+</h4>
+                                <p class="text-muted">Active Students</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="impact-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="impact-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h4 class="h5 counter">50+</h4>
+                                <p class="text-muted">Quality Courses</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="impact-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="impact-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h4 class="h5">4.8/5</h4>
+                                <p class="text-muted">Student Satisfaction</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Join Our Community Section -->
+            <div class="card community-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="card-body text-center">
+                    <h2 class="h4 mb-4 section-title">Join Our Learning Community</h2>
+                    <p class="mb-4 animate-text">Whether you're looking to start a new career, upgrade your skills, or explore new interests, Educaation Arena is here to support your learning journey. Join our growing community of learners and start your educational journey today!</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg cta-btn">Get Started</a>
+                        <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg cta-btn">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Enhanced About Page Styles */
+.about-hero {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.hero-icon-wrapper {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+.hero-icon-wrapper i {
+    font-size: 3rem;
+    color: white;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #4e73df, #224abe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.animate-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Founder Card Styles */
+.founder-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.founder-card:hover {
+    transform: translateY(-5px);
+}
+
+.founder-image-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.founder-image-wrapper img {
+    border: 3px solid #4e73df;
+    transition: transform 0.3s ease;
+}
+
+.founder-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(78,115,223,0.2), rgba(34,74,190,0.2));
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.founder-image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+.founder-image-wrapper:hover .founder-image-overlay {
+    opacity: 1;
+}
+
+.founder-name {
+    color: #4e73df;
+    transition: color 0.3s ease;
+}
+
+.founder-role {
+    position: relative;
+    display: inline-block;
+}
+
+.founder-role::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #4e73df;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.founder-image-wrapper:hover + .founder-name + .founder-role::after {
+    width: 100%;
+}
+
+/* Mission Card Styles */
+.mission-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.highlight-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.highlight-item:hover {
+    transform: translateX(10px);
+}
+
+.highlight-icon {
+    width: 50px;
+    height: 50px;
+    background: #4e73df;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.highlight-item:hover .highlight-icon {
+    transform: rotate(360deg);
+}
+
+/* Features Card Styles */
+.features-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    background: #f8f9fa;
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: #4e73df;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: #224abe;
+}
+
+/* Impact Card Styles */
+.impact-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.impact-item {
+    padding: 2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.impact-item:hover {
+    transform: translateY(-10px);
+    background: #f8f9fa;
+}
+
+.impact-icon {
+    width: 80px;
+    height: 80px;
+    background: #4e73df;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin: 0 auto 1rem;
+    transition: all 0.3s ease;
+}
+
+.impact-item:hover .impact-icon {
+    transform: scale(1.1);
+    background: #224abe;
+}
+
+/* Community Card Styles */
+.community-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    color: white;
+}
+
+.cta-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.cta-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* YouTube Button Styles */
+.youtube-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.youtube-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.youtube-btn:hover::before {
+    transform: translateX(0);
+}
+
+/* Section Title Styles */
+.section-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: #4e73df;
+    transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+    width: 100%;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-icon-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .hero-icon-wrapper i {
+        font-size: 2rem;
+    }
+    
+    .impact-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .feature-item, .highlight-item {
+        padding: 0.75rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+    });
+
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const target = parseInt(counter.innerText);
+        let count = 0;
+        const updateCount = () => {
+            const increment = target / 100;
+            if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + '+';
+                setTimeout(updateCount, 10);
+            } else {
+                counter.innerText = target + '+';
+            }
+        };
+        updateCount();
+    });
+
+    // Animate text elements
+    const animateText = document.querySelectorAll('.animate-text');
+    animateText.forEach((text, index) => {
+        text.style.animationDelay = `${index * 0.2}s`;
+    });
+});
+</script>
+
+<!-- Add AOS Animation Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+{% endblock %} 

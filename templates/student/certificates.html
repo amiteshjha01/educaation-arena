@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}My Certificates - Educaation Arena{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">My Certificates</h1>
+    
+    {% if certificates %}
+    <div class="row">
+        {% for cert in certificates %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cert.course_name }}</h5>
+                    <p class="card-text">
+                        <strong>Certificate ID:</strong> {{ cert.certificate_id }}<br>
+                        <strong>Issue Date:</strong> {{ cert.issue_date.strftime('%B %d, %Y') }}<br>
+                        <strong>Average Score:</strong> {{ "%.2f"|format(cert.average_score) }}%
+                    </p>
+                    <a href="{{ url_for('view_certificate', course_id=cert.course_id) }}" class="btn btn-primary">
+                        <i class="fas fa-download me-2"></i>Download Certificate
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        You haven't earned any certificates yet. Complete your courses to earn certificates!
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

@@ -1,0 +1,464 @@
+{% extends "base.html" %}
+
+{% block title %}Instructor Dashboard - Educaation Arena{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="mb-4">Instructor Dashboard</h1>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">My Courses</h5>
+                            <h2 class="mb-0">{{ courses|length }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Students</h5>
+                            <h2 class="mb-0">{{ total_students|default(0) }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Average Rating</h5>
+                            <h2 class="mb-0">{{ "%.1f"|format(average_rating|default(0)) }}/5.0</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <a href="{{ url_for('instructor_categories') }}" class="btn btn-info">
+                    <i class="fas fa-tags me-2"></i>Manage Categories
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">My Courses</h5>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+                        <i class="fas fa-plus"></i> Add New Course
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Course Title</th>
+                                    <th>Category</th>
+                                    <th>Students</th>
+                                    <th>Progress</th>
+                                    <th>Rating</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for course in courses %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ url_for('instructor_course', course_id=course.id) }}" class="text-decoration-none">
+                                            {{ course.title }}
+                                        </a>
+                                    </td>
+                                    <td>{{ course.category }}</td>
+                                    <td>{{ course.enrolled_students|default(0) }}</td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ course.average_progress|default(0) }}%">
+                                                {{ course.average_progress|default(0) }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-warning">
+                                            {% for i in range(5) %}
+                                                <i class="fas fa-star{{ '' if i < (course.rating|default(0))|int else '-o' }}"></i>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ url_for('instructor_course', course_id=course.id) }}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit"></i> Manage
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#addContentModal">
+                                                <i class="fas fa-plus"></i> Content
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#addQuizModal">
+                                                <i class="fas fa-question-circle"></i> Quiz
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Student Activities</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for activity in recent_activities|default([]) %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ activity.student_name }}</h6>
+                                <small>{{ activity.time }}</small>
+                            </div>
+                            <p class="mb-1">{{ activity.description }}</p>
+                            <small>{{ activity.course_title }}</small>
+                        </div>
+                        {% else %}
+                        <div class="list-group-item">
+                            <p class="mb-0">No recent activities</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Student Performance</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Course Modal -->
+<div class="modal fade" id="addCourseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Course</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addCourseForm" action="{{ url_for('instructor_add_course') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Course Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-select" id="category" name="category" required>
+                                    <option value="">Select category</option>
+                                    {% for category in categories %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="duration" class="form-label">Duration (weeks)</label>
+                                <input type="number" class="form-control" id="duration" name="duration" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price (Rs)</label>
+                        <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Prerequisites (comma-separated)</label>
+                        <input type="text" class="form-control" id="prerequisites" name="prerequisites" 
+                               placeholder="e.g., Basic programming knowledge, Understanding of HTML">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Learning Objectives (comma-separated)</label>
+                        <input type="text" class="form-control" id="learning_objectives" name="learning_objectives" 
+                               placeholder="e.g., Master Python basics, Build web applications">
+                    </div>
+                    <div class="mb-3">
+                        <label for="syllabus_weeks" class="form-label">Number of Syllabus Weeks</label>
+                        <input type="number" class="form-control" id="syllabus_weeks" name="syllabus_weeks" min="1" value="1">
+                    </div>
+                    <div id="syllabusContainer">
+                        <div class="week-container mb-3">
+                            <h6>Week 1</h6>
+                            <div class="mb-2">
+                                <label class="form-label">Week Title</label>
+                                <input type="text" class="form-control" name="week_1_title" required>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Topics (comma-separated)</label>
+                                <input type="text" class="form-control" name="week_1_topics" 
+                                       placeholder="e.g., Introduction, Basic concepts, Practical examples">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create Course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Content Modal -->
+<div class="modal fade" id="addContentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Course Content</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addContentForm">
+                    <div class="mb-3">
+                        <label for="contentTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="contentTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contentType" class="form-label">Content Type</label>
+                        <select class="form-select" id="contentType">
+                            <option value="video">Video</option>
+                            <option value="document">Document</option>
+                            <option value="assignment">Assignment</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contentFile" class="form-label">Upload Content</label>
+                        <input type="file" class="form-control" id="contentFile">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contentDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="contentDescription" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add Content</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Quiz Modal -->
+<div class="modal fade" id="addQuizModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Quiz</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addQuizForm">
+                    <div class="mb-3">
+                        <label for="quizTitle" class="form-label">Quiz Title</label>
+                        <input type="text" class="form-control" id="quizTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quizDuration" class="form-label">Duration (minutes)</label>
+                        <input type="number" class="form-control" id="quizDuration" required>
+                    </div>
+                    <div id="questions">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6>Question 1</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Question Text</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Options</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="correct1">
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Option 1">
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="correct1">
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Option 2">
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="correct1">
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Option 3">
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="correct1">
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Option 4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary w-100" onclick="addQuestion()">
+                        <i class="fas fa-plus"></i> Add Question
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create Quiz</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Performance Chart
+const ctx = document.getElementById('performanceChart').getContext('2d');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+            label: 'Average Quiz Score',
+            data: [75, 82, 78, 85],
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100
+            }
+        }
+    }
+});
+
+// Add Prerequisite
+function addPrerequisite() {
+    const container = document.getElementById('prerequisites');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+        <input type="text" class="form-control" placeholder="Enter prerequisite">
+        <button class="btn btn-outline-danger" type="button" onclick="this.parentElement.remove()">
+            <i class="fas fa-minus"></i>
+        </button>
+    `;
+    container.appendChild(div);
+}
+
+// Add Question
+function addQuestion() {
+    const container = document.getElementById('questions');
+    const questionNumber = container.children.length + 1;
+    const div = document.createElement('div');
+    div.className = 'card mb-3';
+    div.innerHTML = `
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6>Question ${questionNumber}</h6>
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.card').remove()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Question Text</label>
+                <input type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Options</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-text">
+                        <input type="radio" name="correct${questionNumber}">
+                    </div>
+                    <input type="text" class="form-control" placeholder="Option 1">
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-text">
+                        <input type="radio" name="correct${questionNumber}">
+                    </div>
+                    <input type="text" class="form-control" placeholder="Option 2">
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-text">
+                        <input type="radio" name="correct${questionNumber}">
+                    </div>
+                    <input type="text" class="form-control" placeholder="Option 3">
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-text">
+                        <input type="radio" name="correct${questionNumber}">
+                    </div>
+                    <input type="text" class="form-control" placeholder="Option 4">
+                </div>
+            </div>
+        </div>
+    `;
+    container.appendChild(div);
+}
+
+document.getElementById('syllabus_weeks').addEventListener('change', function() {
+    const container = document.getElementById('syllabusContainer');
+    const weeks = parseInt(this.value) || 0;
+    
+    // Clear existing week containers
+    container.innerHTML = '';
+    
+    // Add containers for each week
+    for (let i = 1; i <= weeks; i++) {
+        container.innerHTML += `
+            <div class="week-container mb-3">
+                <h6>Week ${i}</h6>
+                <div class="mb-2">
+                    <label class="form-label">Week Title</label>
+                    <input type="text" class="form-control" name="week_${i}_title" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Topics (comma-separated)</label>
+                    <input type="text" class="form-control" name="week_${i}_topics" 
+                           placeholder="e.g., Introduction, Basic concepts, Practical examples">
+                </div>
+            </div>
+        `;
+    }
+});
+
+// Initialize the first week
+document.getElementById('syllabus_weeks').dispatchEvent(new Event('change'));
+</script>
+{% endblock %}
+{% endblock %} 

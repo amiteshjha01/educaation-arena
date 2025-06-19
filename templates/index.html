@@ -1,0 +1,1389 @@
+{% extends "base.html" %}
+
+{% block title %}Educaation Arena - Learn Programming, DSA, Web & Mobile Development{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Particle Background -->
+<section class="hero-section">
+    <div id="particles-js"></div>
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h1 class="display-4 fw-bold text-gradient mb-4">Master Programming with Educaation Arena</h1>
+                <p class="lead mb-4 animate-text">Learn programming, DSA, web development, and mobile development from industry experts. Start your journey to becoming a skilled developer today.</p>
+                <div class="d-flex gap-3">
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg cta-btn">
+                        <span>Get Started</span>
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                    <a href="{{ url_for('courses') }}" class="btn btn-outline-primary btn-lg cta-btn">
+                        <span>Explore Courses</span>
+                        <i class="fas fa-book ms-2"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="hero-image-wrapper">
+                    <img src="{{ url_for('static', filename='images/hero-image.png') }}" alt="Learning Illustration" class="img-fluid hero-image">
+                    <div class="floating-card card-1">
+                        <i class="fas fa-code"></i>
+                        <span>Learn to Code</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Build Projects</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="fas fa-certificate"></i>
+                        <span>Get Certified</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add after the hero section -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('courses') }}" class="menu-button">
+                    <i class="fas fa-book me-2"></i>View Courses
+                </a>
+                <a href="{{ url_for('contact') }}" class="menu-button">
+                    <i class="fas fa-envelope me-2"></i>Enquire Now
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Trust Indicators -->
+<section class="trust-indicators py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="trust-card">
+                    <div class="trust-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="counter">100+</h3>
+                    <p>Active Learners</p>
+                </div>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="trust-card">
+                    <div class="trust-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="counter">50+</h3>
+                    <p>Quality Courses</p>
+                </div>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="trust-card">
+                    <div class="trust-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>4.8/5</h3>
+                    <p>Average Rating</p>
+                </div>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="trust-card">
+                    <div class="trust-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>95%</h3>
+                    <p>Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured In Section -->
+<section class="featured-in py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 text-center mb-4">
+                <h5 class="text-muted">Trusted By Industry Leaders</h5>
+            </div>
+            <div class="col-12">
+                <div class="featured-logos">
+                    <div class="logo-item" data-aos="fade-up" data-aos-delay="100">
+                        <img src="{{ url_for('static', filename='images/partners/google.png') }}" alt="Google">
+                    </div>
+                    <div class="logo-item" data-aos="fade-up" data-aos-delay="200">
+                        <img src="{{ url_for('static', filename='images/partners/microsoft.png') }}" alt="Microsoft">
+                    </div>
+                    <div class="logo-item" data-aos="fade-up" data-aos-delay="300">
+                        <img src="{{ url_for('static', filename='images/partners/amazon.png') }}" alt="Amazon">
+                    </div>
+                    <div class="logo-item" data-aos="fade-up" data-aos-delay="400">
+                        <img src="{{ url_for('static', filename='images/partners/ibm.png') }}" alt="IBM">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Categories -->
+<section class="categories-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5" data-aos="fade-up">Popular Categories</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Programming</h3>
+                    <p>Master programming languages and concepts</p>
+                    <a href="#" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Data Structures</h3>
+                    <p>Learn essential data structures and algorithms</p>
+                    <a href="#" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Build modern web applications</p>
+                    <a href="#" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses -->
+<section class="featured-courses py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up">Featured Courses</h2>
+        
+        <!-- Category Filter -->
+        <div class="category-filter mb-4" data-aos="fade-up">
+            <div class="d-flex justify-content-center flex-wrap gap-2">
+                <button class="category-btn active" data-category="all">All Courses</button>
+                {% for category in categories %}
+                <button class="category-btn" data-category="{{ category.name }}">{{ category.name }}</button>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            {% for course in courses %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}" data-category="{{ course.category }}">
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="{{ course.image }}" alt="{{ course.title }}">
+                        <div class="course-overlay">
+                            <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-light">View Course</a>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-badge">{{ course.category }}</div>
+                        <h3>{{ course.title }}</h3>
+                        <p>{{ course.description[:100] }}...</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> {{ course.duration }}</span>
+                            <span><i class="fas fa-star"></i> {{ course.rating|default('New') }}</span>
+                        </div>
+                        <div class="course-footer">
+                            <span class="price">₹{{ course.price }}</span>
+                            <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="features-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5" data-aos="fade-up">Why Choose Educaation Arena?</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from industry professionals with years of experience</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Practical Learning</h3>
+                    <p>Hands-on projects and real-world applications</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certification</h3>
+                    <p>Earn recognized certificates upon completion</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5" data-aos="fade-up">What Our Students Say</h2>
+        <div class="testimonials-slider" data-aos="fade-up">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"The courses are well-structured and the instructors are very knowledgeable. I've learned a lot!"</p>
+                    <div class="testimonial-author">
+                        <img src="{{ url_for('static', filename='images/student1.jpg') }}" alt="Student">
+                        <div>
+                            <h4>John Doe</h4>
+                            <p>Web Development Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more testimonials as needed -->
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-section py-5">
+    <div class="container">
+        <div class="newsletter-card" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2>Stay Updated</h2>
+                    <p>Subscribe to our newsletter for the latest courses and updates</p>
+                </div>
+                <div class="col-lg-6">
+                    <form class="newsletter-form">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                            <button class="btn btn-primary">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Finder Quiz -->
+<section class="course-finder py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4" data-aos="fade-up">Find Your Perfect Course</h2>
+                <div class="quiz-container" data-aos="fade-up">
+                    <div class="quiz-step active" id="step1">
+                        <h4>What's your current skill level?</h4>
+                        <div class="options">
+                            <button class="option-btn" data-level="beginner">Beginner</button>
+                            <button class="option-btn" data-level="intermediate">Intermediate</button>
+                            <button class="option-btn" data-level="advanced">Advanced</button>
+                        </div>
+                    </div>
+                    <div class="quiz-step" id="step2">
+                        <h4>What interests you the most?</h4>
+                        <div class="options">
+                            <button class="option-btn" data-interest="web">Web Development</button>
+                            <button class="option-btn" data-interest="mobile">Mobile Development</button>
+                            <button class="option-btn" data-interest="dsa">Data Structures</button>
+                            <button class="option-btn" data-interest="programming">Programming</button>
+                        </div>
+                    </div>
+                    <div class="quiz-step" id="step3">
+                        <h4>How much time can you dedicate?</h4>
+                        <div class="options">
+                            <button class="option-btn" data-time="part">Part-time (5-10 hrs/week)</button>
+                            <button class="option-btn" data-time="full">Full-time (20+ hrs/week)</button>
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="result">
+                        <h4>Recommended Courses</h4>
+                        <div class="recommended-courses"></div>
+                        <button class="btn btn-primary mt-3" id="restartQuiz">Start Over</button>
+                    </div>
+                    <div class="quiz-navigation">
+                        <button class="btn btn-outline-primary" id="prevBtn" style="display: none;">Previous</button>
+                        <button class="btn btn-primary" id="nextBtn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Student Success Stories -->
+<section class="success-stories py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up">Student Success Stories</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="success-card">
+                    <div class="success-image">
+                        <img src="{{ url_for('static', filename='images/students/student1.jpg') }}" alt="Student">
+                    </div>
+                    <div class="success-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"The web development course helped me land my dream job at a tech startup. The practical projects were invaluable!"</p>
+                        <div class="student-info">
+                            <h5>Sarah Johnson</h5>
+                            <p>Web Developer at TechStart</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="success-card">
+                    <div class="success-image">
+                        <img src="{{ url_for('static', filename='images/students/student2.jpg') }}" alt="Student">
+                    </div>
+                    <div class="success-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"The DSA course was comprehensive and well-structured. I aced my technical interviews!"</p>
+                        <div class="student-info">
+                            <h5>Michael Chen</h5>
+                            <p>Software Engineer at Google</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="success-card">
+                    <div class="success-image">
+                        <img src="{{ url_for('static', filename='images/students/student3.jpg') }}" alt="Student">
+                    </div>
+                    <div class="success-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"The mobile development course gave me the skills to launch my own app. Highly recommended!"</p>
+                        <div class="student-info">
+                            <h5>Emily Rodriguez</h5>
+                            <p>App Developer & Entrepreneur</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Live Chat Widget -->
+<div class="chat-widget" id="chatWidget">
+    <button class="chat-toggle" id="chatToggle">
+        <i class="fas fa-comments"></i>
+        <span class="notification-dot"></span>
+    </button>
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <h5>Chat with Us</h5>
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message system">
+                <p>Welcome to Educaation Arena! How can we help you today?</p>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="sendMessage">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Hero Section */
+.hero-section {
+    position: relative;
+    padding: 100px 0;
+    background: var(--gradient-primary);
+    color: white;
+    overflow: hidden;
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    padding: 2rem;
+}
+
+.hero-image {
+    position: relative;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-card {
+    position: absolute;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 3;
+}
+
+.floating-card i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.card-1 {
+    top: 10%;
+    left: 0;
+    animation: float 4s ease-in-out infinite;
+}
+
+.card-2 {
+    top: 50%;
+    right: 0;
+    animation: float 5s ease-in-out infinite;
+}
+
+.card-3 {
+    bottom: 10%;
+    left: 20%;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Trust Indicators */
+.trust-card {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+}
+
+.trust-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.trust-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 2rem;
+}
+
+/* Categories Section */
+.category-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    text-align: center;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.category-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-base);
+}
+
+.category-link:hover {
+    gap: 1rem;
+}
+
+/* Course Cards */
+.course-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.course-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.course-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: var(--transition-base);
+}
+
+.course-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition-base);
+}
+
+.course-card:hover .course-overlay {
+    opacity: 1;
+}
+
+.course-content {
+    padding: 1.5rem;
+}
+
+.course-badge {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.course-meta {
+    display: flex;
+    gap: 1rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+}
+
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Features Section */
+.features-section {
+    background: var(--light-bg);
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 2rem;
+}
+
+/* Testimonials Section */
+.testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    margin: 1rem;
+}
+
+.quote-icon {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.testimonial-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Newsletter Section */
+.newsletter-card {
+    background: var(--gradient-primary);
+    padding: 3rem;
+    border-radius: 15px;
+    color: white;
+}
+
+.newsletter-form .form-control {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px 0 0 25px;
+}
+
+.newsletter-form .btn {
+    padding: 0.75rem 2rem;
+    border-radius: 0 25px 25px 0;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .hero-section {
+        padding: 50px 0;
+    }
+
+    .floating-card {
+        display: none;
+    }
+
+    .newsletter-card {
+        padding: 2rem;
+    }
+}
+
+/* Category Filter Styles */
+.category-filter {
+    margin-bottom: 2rem;
+}
+
+.category-btn {
+    padding: 0.5rem 1.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    background: transparent;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.category-btn:hover::before,
+.category-btn.active::before {
+    left: 0;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Course Card Animation */
+.course-card {
+    transition: all 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+}
+
+.course-badge {
+    animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Dark Theme Adjustments */
+.dark-theme .category-btn {
+    border-color: #4e73df;
+    color: #4e73df;
+}
+
+.dark-theme .category-btn:hover,
+.dark-theme .category-btn.active {
+    color: white;
+}
+
+/* Featured In Section Styles */
+.featured-in {
+    background: var(--light-bg);
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.featured-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.logo-item {
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    filter: grayscale(100%);
+}
+
+.logo-item:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+.logo-item img {
+    height: 40px;
+    width: auto;
+}
+
+/* Dark Theme Adjustments */
+.dark-theme .featured-in {
+    background: #1a1a1a;
+    border-color: rgba(255,255,255,0.1);
+}
+
+.dark-theme .logo-item {
+    opacity: 0.4;
+}
+
+.dark-theme .logo-item:hover {
+    opacity: 0.8;
+}
+
+/* Course Finder Quiz Styles */
+.course-finder {
+    background: var(--light-bg);
+}
+
+.quiz-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+}
+
+.quiz-step {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.quiz-step.active {
+    display: block;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.option-btn {
+    padding: 1rem 2rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    background: transparent;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.option-btn:hover,
+.option-btn.selected {
+    background: var(--gradient-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.recommended-courses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dark Theme Adjustments */
+.dark-theme .quiz-container {
+    background: #2d2d2d;
+}
+
+.dark-theme .option-btn {
+    border-color: #4e73df;
+    color: #4e73df;
+}
+
+.dark-theme .option-btn:hover,
+.dark-theme .option-btn.selected {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+/* Success Stories Styles */
+.success-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.success-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.success-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.success-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.success-card:hover .success-image img {
+    transform: scale(1.1);
+}
+
+.success-content {
+    padding: 1.5rem;
+    position: relative;
+}
+
+.quote-icon {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.student-info {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+/* Chat Widget Styles */
+.chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chat-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.chat-toggle:hover {
+    transform: scale(1.1);
+}
+
+.notification-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background: #ff4757;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.chat-container {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 300px;
+    height: 400px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-lg);
+    display: none;
+    flex-direction: column;
+}
+
+.chat-container.active {
+    display: flex;
+}
+
+.chat-header {
+    padding: 1rem;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-chat {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.message.system {
+    background: #f8f9fa;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message.user {
+    background: var(--gradient-primary);
+    color: white;
+    margin-left: auto;
+}
+
+.message.support {
+    background: #e9ecef;
+    margin-right: auto;
+}
+
+.chat-input {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chat-input button {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+}
+
+/* Dark Theme Adjustments */
+.dark-theme .success-card {
+    background: #2d2d2d;
+}
+
+.dark-theme .student-info {
+    border-color: #404040;
+}
+
+.dark-theme .chat-container {
+    background: #2d2d2d;
+}
+
+.dark-theme .message.system {
+    background: #404040;
+    color: #e0e0e0;
+}
+
+.dark-theme .message.support {
+    background: #404040;
+    color: #e0e0e0;
+}
+
+.dark-theme .chat-input {
+    border-color: #404040;
+}
+
+.dark-theme .chat-input input {
+    background: #404040;
+    border-color: #505050;
+    color: #e0e0e0;
+}
+</style>
+
+<!-- Add Particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Particles.js
+    particlesJS('particles-js', {
+        particles: {
+            number: {
+                value: 80,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: '#ffffff'
+            },
+            shape: {
+                type: 'circle'
+            },
+            opacity: {
+                value: 0.5,
+                random: false
+            },
+            size: {
+                value: 3,
+                random: true
+            },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#ffffff',
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 6,
+                direction: 'none',
+                random: false,
+                straight: false,
+                out_mode: 'out',
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: 'repulse'
+                },
+                onclick: {
+                    enable: true,
+                    mode: 'push'
+                },
+                resize: true
+            }
+        },
+        retina_detect: true
+    });
+
+    // Course Filters
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // Implement filtering logic here
+        });
+    });
+
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const target = parseInt(counter.innerText);
+        let count = 0;
+        const updateCount = () => {
+            const increment = target / 100;
+            if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + '+';
+                setTimeout(updateCount, 10);
+            } else {
+                counter.innerText = target + '+';
+            }
+        };
+        updateCount();
+    });
+
+    // Category Filter Functionality
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const courseCards = document.querySelectorAll('.course-card');
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+
+            const selectedCategory = this.dataset.category;
+
+            // Filter courses
+            courseCards.forEach(card => {
+                const cardCategory = card.closest('[data-category]').dataset.category;
+                if (selectedCategory === 'all' || selectedCategory === cardCategory) {
+                    card.closest('.col-md-6').style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.closest('.col-md-6').style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+
+    // Course Finder Quiz Functionality
+    const steps = document.querySelectorAll('.quiz-step');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const restartBtn = document.getElementById('restartQuiz');
+    let currentStep = 0;
+    const answers = {};
+
+    function showStep(step) {
+        steps.forEach(s => s.classList.remove('active'));
+        steps[step].classList.add('active');
+        
+        prevBtn.style.display = step === 0 ? 'none' : 'block';
+        nextBtn.style.display = step === steps.length - 1 ? 'none' : 'block';
+    }
+
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const step = this.closest('.quiz-step');
+            step.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            
+            const question = step.id;
+            const answer = this.dataset[Object.keys(this.dataset)[0]];
+            answers[question] = answer;
+        });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
+
+    restartBtn.addEventListener('click', () => {
+        currentStep = 0;
+        showStep(currentStep);
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+        document.getElementById('result').style.display = 'none';
+        nextBtn.style.display = 'block';
+    });
+});
+</script>
+
+<script>
+// Chat Widget Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const chatToggle = document.getElementById('chatToggle');
+    const chatContainer = document.getElementById('chatContainer');
+    const closeChat = document.getElementById('closeChat');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatToggle.addEventListener('click', () => {
+        chatContainer.classList.toggle('active');
+        document.querySelector('.notification-dot').style.display = 'none';
+    });
+
+    closeChat.addEventListener('click', () => {
+        chatContainer.classList.remove('active');
+    });
+
+    function addMessage(message, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+        messageDiv.innerHTML = `<p>${message}</p>`;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    sendMessage.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+            addMessage(message, 'user');
+            chatInput.value = '';
+            
+            // Simulate support response
+            setTimeout(() => {
+                addMessage('Thank you for your message! Our team will get back to you shortly.', 'support');
+            }, 1000);
+        }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage.click();
+        }
+    });
+});
+</script>
+{% endblock %} 

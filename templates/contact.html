@@ -1,0 +1,482 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - Educaation Arena{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="contact-hero text-center mb-5" data-aos="fade-up">
+                <div class="contact-icon-wrapper mb-4">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h1 class="display-4 fw-bold text-gradient">Contact Us</h1>
+                <p class="lead animate-text">Get in touch with us for any questions or inquiries</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Contact Information -->
+                <div class="col-md-5">
+                    <div class="card contact-info-card h-100" data-aos="fade-right">
+                        <div class="card-body">
+                            <h2 class="h4 mb-4 section-title">Get in Touch</h2>
+                            <div class="contact-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <h3 class="h6 mb-1">Email</h3>
+                                    <p class="mb-0">educationarena2157@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <h3 class="h6 mb-1">Phone</h3>
+                                    <p class="mb-0">+91 9911916497</p>
+                                </div>
+                            </div>
+                            <div class="contact-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <h3 class="h6 mb-1">Address</h3>
+                                    <p class="mb-0">Rohini<br>Rohini Sec 7, New Delhi<br>India</p>
+                                </div>
+                            </div>
+                            <h3 class="h6 mb-3 section-title">Follow Us</h3>
+                            <div class="social-links" data-aos="fade-up" data-aos-delay="400">
+                                <a href="https://www.youtube.com/@educationarena2157" class="social-link youtube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/amitesh-jha-a2b932215/" class="social-link linkedin">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="col-md-7">
+                    <div class="card contact-form-card" data-aos="fade-left">
+                        <div class="card-body">
+                            <h2 class="h4 mb-4 section-title">Send us a Message</h2>
+                            <form id="contactForm" action="{{ url_for('contact_submit') }}" method="POST" class="needs-validation" novalidate>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                    <label for="name">Your Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                                    <label for="email">Email Address</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                                    <label for="subject">Subject</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <textarea class="form-control" id="message" name="message" placeholder="Message" style="height: 150px" required></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary submit-btn">
+                                    <span>Send Message</span>
+                                    <i class="fas fa-paper-plane ms-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="card faq-card mt-5" data-aos="fade-up">
+                <div class="card-body">
+                    <h2 class="h4 mb-4 section-title">Frequently Asked Questions</h2>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    <i class="fas fa-question-circle me-2"></i>
+                                    How can I enroll in a course?
+                                </button>
+                            </h3>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    To enroll in a course, simply create an account, browse our course catalog, select your desired course, and click the "Enroll Now" button. Follow the payment process, and you'll get immediate access to the course content.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    <i class="fas fa-credit-card me-2"></i>
+                                    What payment methods do you accept?
+                                </button>
+                            </h3>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We accept all major credit/debit cards, UPI, and net banking through our secure payment gateway powered by Stripe.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    <i class="fas fa-certificate me-2"></i>
+                                    How do I get my course completion certificate?
+                                </button>
+                            </h3>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Once you complete all course modules and pass the final assessment, your certificate will be automatically generated and available for download from your dashboard.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Contact Hero Styles */
+.contact-hero {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.contact-icon-wrapper {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+.contact-icon-wrapper i {
+    font-size: 3rem;
+    color: white;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #4e73df, #224abe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.animate-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Contact Info Card Styles */
+.contact-info-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-info-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: #f8f9fa;
+    transform: translateX(10px);
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: #4e73df;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+    transform: rotate(360deg);
+    background: #224abe;
+}
+
+/* Social Links Styles */
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-link.youtube {
+    background: #ff0000;
+}
+
+.social-link.linkedin {
+    background: #0077b5;
+}
+
+.social-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: white;
+}
+
+/* Contact Form Card Styles */
+.contact-form-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-floating > .form-control {
+    padding: 1rem 0.75rem;
+}
+
+.form-floating > label {
+    padding: 1rem 0.75rem;
+}
+
+.form-control:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.2rem rgba(78,115,223,0.25);
+}
+
+.submit-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.submit-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.submit-btn i {
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* FAQ Card Styles */
+.faq-card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+.accordion-button {
+    padding: 1.25rem;
+    font-weight: 500;
+    background: #f8f9fa;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.accordion-button:not(.collapsed) {
+    background: #4e73df;
+    color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.accordion-button::after {
+    transition: all 0.3s ease;
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+}
+
+.accordion-body {
+    padding: 1.25rem;
+    background: white;
+}
+
+/* Section Title Styles */
+.section-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: #4e73df;
+    transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+    width: 100%;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .contact-icon-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .contact-icon-wrapper i {
+        font-size: 2rem;
+    }
+    
+    .contact-item {
+        padding: 0.75rem;
+    }
+    
+    .social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+    });
+
+    // Form validation
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!form.checkValidity()) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+        
+        try {
+            const formData = new FormData(this);
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Show success message with animation
+                const btn = this.querySelector('.submit-btn');
+                btn.innerHTML = '<i class="fas fa-check me-2"></i>Message Sent!';
+                btn.classList.add('btn-success');
+                this.reset();
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane ms-2"></i>';
+                    btn.classList.remove('btn-success');
+                }, 3000);
+            } else {
+                throw new Error(result.message || 'Something went wrong');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    });
+
+    // Animate text elements
+    const animateText = document.querySelectorAll('.animate-text');
+    animateText.forEach((text, index) => {
+        text.style.animationDelay = `${index * 0.2}s`;
+    });
+});
+</script>
+
+<!-- Add AOS Animation Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+{% endblock %} 

@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - Educaation Arena{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <img src="{{ course.image }}" class="img-fluid rounded mb-4" alt="{{ course.title }}">
+            <h1 class="mb-4">{{ course.title }}</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Course Description</h5>
+                    <p class="card-text">{{ course.description }}</p>
+                    
+                    <h5 class="mt-4">What You'll Learn</h5>
+                    <ul class="list-group list-group-flush">
+                        {% for objective in course.learning_objectives %}
+                        <li class="list-group-item">
+                            <i class="fas fa-check text-success me-2"></i>
+                            {{ objective }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Course Syllabus</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="accordion" id="syllabusAccordion">
+                        {% for week in course.syllabus %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#week{{ week.week }}">
+                                    Week {{ week.week }}: {{ week.title }}
+                                </button>
+                            </h2>
+                            <div id="week{{ week.week }}" class="accordion-collapse collapse" data-bs-parent="#syllabusAccordion">
+                                <div class="accordion-body">
+                                    <ul class="list-unstyled mb-0">
+                                        {% for topic in week.topics %}
+                                        <li class="mb-2">
+                                            <i class="fas fa-circle-dot me-2 text-primary"></i>
+                                            {{ topic }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Prerequisites</h5>
+                    <ul class="list-unstyled">
+                        {% for prerequisite in course.prerequisites %}
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2 text-success"></i>
+                            {{ prerequisite }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            {% if instructor %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Instructor</h5>
+                    <div class="d-flex align-items-center">
+                        <img src="{{ instructor.image|default('static/images/default-avatar.jpg') }}" 
+                             class="rounded-circle me-3" 
+                             style="width: 64px; height: 64px; object-fit: cover;" 
+                             alt="{{ instructor.name }}">
+                        <div>
+                            <h6 class="mb-1">{{ instructor.name }}</h6>
+                            <p class="mb-0 text-muted">{{ instructor.title|default('Course Instructor') }}</p>
+                        </div>
+                    </div>
+                    <p class="mt-3 mb-0">{{ instructor.bio|default('') }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card position-sticky" style="top: 2rem;">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Course Information</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-clock me-2"></i>
+                            Duration: {{ course.duration }}
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-tag me-2"></i>
+                            Category: {{ course.category }}
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-users me-2"></i>
+                            Level: Beginner to Advanced
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-language me-2"></i>
+                            Language: English
+                        </li>
+                        {% if course.includes_certificate %}
+                        <li class="mb-4">
+                            <i class="fas fa-certificate me-2"></i>
+                            Certificate of Completion Included
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="d-grid gap-2">
+                        <h3 class="text-center mb-3">₹{{ "%.2f"|format(course.price) }}</h3>
+                        {% if 'user_id' in session %}
+                            {% if is_enrolled %}
+                            <a href="{{ url_for('student_dashboard') }}" class="btn btn-success btn-lg">
+                                <i class="fas fa-play-circle me-2"></i>
+                                Continue Learning
+                            </a>
+                            {% else %}
+                            <button id="enrollButton" class="btn btn-primary btn-lg">Enroll Now</button>
+                            {% endif %}
+                        {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Login to Enroll</a>
+                        {% endif %}
+                    </div>
+
+                    <div class="mt-4">
+                        <h6 class="mb-3">This course includes:</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-video me-2 text-muted"></i>
+                                {{ course.video_hours|default('10') }} hours on-demand video
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-file-alt me-2 text-muted"></i>
+                                {{ course.articles|default('15') }} articles
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-download me-2 text-muted"></i>
+                                {{ course.resources|default('20') }} downloadable resources
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-infinity me-2 text-muted"></i>
+                                Full lifetime access
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-mobile-alt me-2 text-muted"></i>
+                                Access on mobile and TV
+                            </li>
+                            {% if course.includes_certificate %}
+                            <li class="mb-2">
+                                <i class="fas fa-certificate me-2 text-muted"></i>
+                                Certificate of completion
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-center gap-3">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-share"></i>
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-gift"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if 'user_id' in session %}
+<!-- Add Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+let stripe;
+
+async function initialize() {
+    const response = await fetch("/config");
+    const { publicKey } = await response.json();
+    stripe = Stripe(publicKey);
+}
+
+async function handleEnrollment(courseId) {
+    try {
+        const response = await fetch(`/enroll/${courseId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Something went wrong');
+        }
+        
+        const { sessionId } = await response.json();
+        const { error } = await stripe.redirectToCheckout({ sessionId });
+        
+        if (error) {
+            throw new Error(error.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert(error.message);
+    }
+}
+
+// Initialize Stripe
+initialize();
+
+// Add click handler to enroll button
+const courseId = {{ course.id }};
+document.getElementById('enrollButton').addEventListener('click', function() {
+    handleEnrollment(courseId);
+});
+</script>
+{% endif %}
+{% endblock %} 

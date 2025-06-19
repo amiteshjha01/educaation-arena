@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Educaation Arena{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Dashboard Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Admin Dashboard</h1>
+        <div class="btn-group">
+            <a href="{{ url_for('admin_categories') }}" class="btn btn-info">
+                <i class="fas fa-tags me-2"></i>Manage Categories
+            </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+                <i class="fas fa-plus-circle me-2"></i>Add Course
+            </button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="fas fa-user-plus me-2"></i>Add User
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Total Users</h6>
+                            <h2 class="my-3">{{ users|length }}</h2>
+                            <p class="mb-0">Active users in platform</p>
+                        </div>
+                        <i class="fas fa-users fa-2x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Total Courses</h6>
+                            <h2 class="my-3">{{ courses|length }}</h2>
+                            <p class="mb-0">Available courses</p>
+                        </div>
+                        <i class="fas fa-graduation-cap fa-2x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Total Enrollments</h6>
+                            <h2 class="my-3">{{ enrollments|default(0) }}</h2>
+                            <p class="mb-0">Course enrollments</p>
+                        </div>
+                        <i class="fas fa-user-graduate fa-2x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Total Revenue</h6>
+                            <h2 class="my-3">₹{{ total_revenue|default('0.00') }}</h2>
+                            <p class="mb-0">Platform earnings</p>
+                        </div>
+                        <i class="fas fa-dollar-sign fa-2x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row">
+        <!-- Recent Users -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0">Recent Users</h5>
+                    <a href="{{ url_for('admin_users') }}" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users[:5] %}
+                                <tr>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'primary' if user.role == 'admin' else 'info' if user.role == 'instructor' else 'secondary' }}">
+                                            {{ user.role }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" onclick="editUser('{{ user._id }}')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('{{ user._id }}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Courses -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0">Recent Courses</h5>
+                    <a href="{{ url_for('admin_courses') }}" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for course in courses[:5] %}
+                                <tr>
+                                    <td>{{ course.title }}</td>
+                                    <td>
+                                        <span class="badge bg-info">{{ course.category }}</span>
+                                    </td>
+                                    <td>₹{{ "%.2f"|format(course.price) }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" onclick="editCourse('{{ course.id }}')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" onclick="deleteCourse('{{ course.id }}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Course Modal -->
+<div class="modal fade" id="addCourseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Course</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addCourseForm" action="{{ url_for('admin_add_course') }}" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Course Title</label>
+                            <input type="text" class="form-control" name="title" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category" required>
+                                <option value="">Select category</option>
+                                {% for category in categories %}
+                                <option value="{{ category.name }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Duration (weeks)</label>
+                            <input type="number" class="form-control" name="duration" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Price (₹)</label>
+                            <input type="number" step="0.01" class="form-control" name="price" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Prerequisites (comma-separated)</label>
+                            <input type="text" class="form-control" name="prerequisites" placeholder="e.g., Basic programming, HTML knowledge">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Learning Objectives (comma-separated)</label>
+                            <input type="text" class="form-control" name="learning_objectives" placeholder="e.g., Build web apps, Master Python">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="addCourseForm" class="btn btn-primary">Add Course</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm" action="{{ url_for('admin_add_user') }}" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" name="role" required>
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="addUserForm" class="btn btn-primary">Add User</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function editUser(userId) {
+    // Implement user editing functionality
+    console.log('Editing user:', userId);
+}
+
+function deleteUser(userId) {
+    if (confirm('Are you sure you want to delete this user?')) {
+        fetch(`/admin/users/${userId}/delete`, {
+            method: 'POST',
+        }).then(response => {
+            if (response.ok) {
+                location.reload();
+            }
+        });
+    }
+}
+
+function editCourse(courseId) {
+    // Implement course editing functionality
+    console.log('Editing course:', courseId);
+}
+
+function deleteCourse(courseId) {
+    if (confirm('Are you sure you want to delete this course?')) {
+        fetch(`/admin/courses/${courseId}/delete`, {
+            method: 'POST',
+        }).then(response => {
+            if (response.ok) {
+                location.reload();
+            }
+        });
+    }
+}
+</script>
+{% endblock %} 

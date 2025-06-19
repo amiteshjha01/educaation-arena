@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard - Educaation Arena{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Dashboard Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="mb-0">My Learning Dashboard</h1>
+                <div>
+                    <a href="{{ url_for('student_quiz_results') }}" class="btn btn-info me-2">
+                        <i class="fas fa-chart-bar me-2"></i>Quiz Results
+                    </a>
+                    <a href="{{ url_for('student_certificates') }}" class="btn btn-primary">
+                        <i class="fas fa-certificate me-2"></i>View Certificates
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Statistics Cards -->
+            <div class="row g-4 mt-3">
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Enrolled Courses</h5>
+                            <h2 class="mb-0">{{ courses|length }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Completed Courses</h5>
+                            <h2 class="mb-0">{{ courses|selectattr('is_completed', 'true')|list|length }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Certificates Earned</h5>
+                            <h2 class="mb-0">{{ courses|selectattr('has_certificate', 'true')|list|length }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row">
+        <!-- Course List -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">My Courses</h5>
+                </div>
+                <div class="card-body">
+                    {% if courses %}
+                    <div class="row g-4">
+                        {% for course in courses %}
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <img src="{{ url_for('static', filename=course.image) }}" class="card-img-top course-image" alt="{{ course.title }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ course.title }}</h5>
+                                    <p class="card-text">{{ course.description[:100] }}...</p>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label d-flex justify-content-between">
+                                            <span>Progress</span>
+                                            <span>{{ course.progress }}%</span>
+                                        </label>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ course.progress }}%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-{{ 'success' if course.is_completed else 'primary' }}">
+                                            {{ 'Completed' if course.is_completed else 'In Progress' }}
+                                        </span>
+                                        
+                                        {% if course.is_completed %}
+                                            {% if course.has_certificate %}
+                                            <a href="{{ url_for('view_certificate', course_id=course.id) }}" class="btn btn-success btn-sm">
+                                                <i class="fas fa-certificate me-2"></i>View Certificate
+                                            </a>
+                                            {% else %}
+                                            <a href="{{ url_for('view_certificate', course_id=course.id) }}" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-certificate me-2"></i>Generate Certificate
+                                            </a>
+                                            {% endif %}
+                                        {% else %}
+                                        <div class="btn-group">
+                                            <a href="{{ url_for('view_course_materials', course_id=course.id) }}" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-book me-2"></i>Materials
+                                            </a>
+                                            {% if course.syllabus %}
+                                            <a href="{{ url_for('take_quiz', course_id=course.id, module_id=course.syllabus[0].week) }}" class="btn btn-info btn-sm">
+                                                <i class="fas fa-question-circle me-2"></i>Quiz
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <div class="row text-center">
+                                        <div class="col">
+                                            <small class="text-muted">
+                                                <i class="fas fa-book-open"></i>
+                                                {{ course.completed_modules|length }}/{{ course.syllabus|length }} Modules
+                                            </small>
+                                        </div>
+                                        <div class="col">
+                                            <small class="text-muted">
+                                                <i class="fas fa-clock"></i>
+                                                {{ course.duration }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-book-open fa-3x text-muted mb-3"></i>
+                        <h5>You haven't enrolled in any courses yet</h5>
+                        <p class="text-muted">Explore our courses and start learning today!</p>
+                        <a href="{{ url_for('home') }}" class="btn btn-primary">Browse Courses</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-4">
+            <!-- Recent Quiz Results -->
+            <div class="card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Recent Quiz Results</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for course in courses %}
+                            {% if course.quiz_scores %}
+                                {% for module_id, score in course.quiz_scores.items() %}
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">{{ course.title }} - Module {{ module_id }}</h6>
+                                        <small>{{ score }}%</small>
+                                    </div>
+                                    <div class="progress" style="height: 5px;">
+                                        <div class="progress-bar {{ 'bg-success' if score >= 70 else 'bg-warning' }}" 
+                                             role="progressbar" 
+                                             style="width: {{ score }}%">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                        <div class="list-group-item">
+                            <p class="mb-0 text-muted">No quiz results yet</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Progress -->
+            <div class="card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Learning Progress</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Upcoming Deadlines -->
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Upcoming Deadlines</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for course in courses %}
+                            {% if not course.is_completed %}
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">{{ course.title }}</h6>
+                                    <small class="text-muted">{{ course.duration }}</small>
+                                </div>
+                                <p class="mb-1">Complete remaining modules</p>
+                                <small class="text-muted">
+                                    {{ course.syllabus|length - course.completed_modules|length }} modules left
+                                </small>
+                            </div>
+                            {% endif %}
+                        {% else %}
+                        <div class="list-group-item">
+                            <p class="mb-0 text-muted">No upcoming deadlines</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Progress Chart
+const ctx = document.getElementById('progressChart').getContext('2d');
+const courses = {{ courses|tojson|safe }};
+const labels = courses.map(course => course.title);
+const progress = courses.map(course => course.progress);
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Course Progress',
+            data: progress,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100,
+                title: {
+                    display: true,
+                    text: 'Progress (%)'
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
+{% endblock %} 

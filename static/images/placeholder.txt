@@ -1,0 +1,5 @@
+This directory contains course images. Please replace the following image placeholders with actual images:
+- python.jpg
+- dsa.jpg
+- web.jpg
+- mobile.jpg 

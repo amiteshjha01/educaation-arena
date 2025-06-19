@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}My Quiz Results{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Quiz Results</h1>
+        <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+
+    {% if quiz_results %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">All Quiz Results</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Course</th>
+                            <th>Module</th>
+                            <th>Score</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in quiz_results %}
+                        <tr>
+                            <td>{{ result.course_title }}</td>
+                            <td>{{ result.module_title }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress flex-grow-1" style="height: 5px;">
+                                        <div class="progress-bar {{ 'bg-success' if result.score >= 70 else 'bg-warning' }}" 
+                                             role="progressbar" 
+                                             style="width: {{ result.score }}%">
+                                        </div>
+                                    </div>
+                                    <span class="ms-2">{{ result.score }}%</span>
+                                </div>
+                            </td>
+                            <td>{{ result.date.strftime('%Y-%m-%d %H:%M') if result.date else 'N/A' }}</td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if result.score >= 70 else 'warning' }}">
+                                    {{ 'Passed' if result.score >= 70 else 'Needs Improvement' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('take_quiz', course_id=result.course_id, module_id=result.module_id) }}" 
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-redo me-1"></i>Retake Quiz
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-4 mt-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Quizzes</h5>
+                    <h2 class="mb-0">{{ quiz_results|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Passed Quizzes</h5>
+                    <h2 class="mb-0">{{ quiz_results|selectattr('score', '>=', 70)|list|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Average Score</h5>
+                    <h2 class="mb-0">
+                        {{ ((quiz_results|map(attribute='score')|sum / quiz_results|length)|round(1)) if quiz_results else 0 }}%
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-question-circle fa-3x text-muted mb-3"></i>
+        <h5>No Quiz Results Yet</h5>
+        <p class="text-muted">Complete quizzes in your courses to see your results here.</p>
+        <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary">Go to Courses</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Add Quiz - {{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2>Add Quiz for {{ course.title }}</h2>
+    <form action="" method="POST">
+        <div class="mb-3">
+            <label class="form-label">Module</label>
+            <select class="form-select" name="module_id" required>
+                <option value="">Select Module</option>
+                {% for module in course.syllabus %}
+                <option value="{{ module.week }}">Week {{ module.week }}: {{ module.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% for i in range(1, 6) %}
+        <div class="card mb-3">
+            <div class="card-header">Question {{ i }}</div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <label class="form-label">Question</label>
+                    <input type="text" class="form-control" name="question_{{ i }}">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Option A</label>
+                        <input type="text" class="form-control" name="option_{{ i }}_a">
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Option B</label>
+                        <input type="text" class="form-control" name="option_{{ i }}_b">
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Option C</label>
+                        <input type="text" class="form-control" name="option_{{ i }}_c">
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Option D</label>
+                        <input type="text" class="form-control" name="option_{{ i }}_d">
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Correct Answer</label>
+                    <select class="form-select" name="correct_{{ i }}">
+                        <option value="">Select</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Save Quiz</button>
+        <a href="{{ url_for('instructor_course', course_id=course.id) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %} 

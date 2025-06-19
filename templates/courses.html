@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}Courses - Educaation Arena{% endblock %}
+
+{% block content %}
+<section class="courses-page py-5">
+    <div class="container">
+        <h1 class="text-center mb-5" data-aos="fade-up">Our Courses</h1>
+        
+        <!-- Filters -->
+        <div class="row mb-4">
+            <div class="col-md-3" data-aos="fade-right">
+                <div class="filters-card">
+                    <h4>Filters</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            {% for category in categories %}
+                            <option value="{{ category.name }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Price Range</label>
+                        <select class="form-select" id="priceFilter">
+                            <option value="">All Prices</option>
+                            <option value="0-2000">Under ₹2,000</option>
+                            <option value="2000-4000">₹2,000 - ₹4,000</option>
+                            <option value="4000+">Above ₹4,000</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Duration</label>
+                        <select class="form-select" id="durationFilter">
+                            <option value="">Any Duration</option>
+                            <option value="0-4">Under 4 weeks</option>
+                            <option value="4-8">4-8 weeks</option>
+                            <option value="8+">Above 8 weeks</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Course List -->
+            <div class="col-md-9">
+                <div class="row g-4">
+                    {% for course in courses %}
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                        <div class="course-card">
+                            <div class="course-image">
+                                <img src="{{ course.image }}" alt="{{ course.title }}">
+                                <div class="course-overlay">
+                                    <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-light">View Course</a>
+                                </div>
+                            </div>
+                            <div class="course-content">
+                                <div class="course-badge">{{ course.category }}</div>
+                                <h3>{{ course.title }}</h3>
+                                <p>{{ course.description[:100] }}...</p>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-clock"></i> {{ course.duration }}</span>
+                                    <span><i class="fas fa-star"></i> {{ course.rating|default('New') }}</span>
+                                </div>
+                                <div class="course-footer">
+                                    <span class="price">₹{{ course.price }}</span>
+                                    <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.courses-page {
+    background-color: var(--light-bg);
+}
+
+.filters-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+}
+
+.course-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    height: 100%;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.course-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.course-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: var(--transition-base);
+}
+
+.course-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition-base);
+}
+
+.course-card:hover .course-overlay {
+    opacity: 1;
+}
+
+.course-content {
+    padding: 1.5rem;
+}
+
+.course-badge {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.course-meta {
+    display: flex;
+    gap: 1rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+}
+
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryFilter = document.getElementById('categoryFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    const durationFilter = document.getElementById('durationFilter');
+    const courseCards = document.querySelectorAll('.course-card');
+
+    function filterCourses() {
+        const selectedCategory = categoryFilter.value;
+        const selectedPrice = priceFilter.value;
+        const selectedDuration = durationFilter.value;
+
+        courseCards.forEach(card => {
+            const category = card.querySelector('.course-badge').textContent;
+            const price = parseInt(card.querySelector('.price').textContent.replace('₹', ''));
+            const duration = card.querySelector('.course-meta span:first-child').textContent;
+            const durationWeeks = parseInt(duration.match(/\d+/)[0]);
+
+            let showCard = true;
+
+            if (selectedCategory && category !== selectedCategory) {
+                showCard = false;
+            }
+
+            if (selectedPrice) {
+                const [min, max] = selectedPrice.split('-').map(v => v === '+' ? Infinity : parseInt(v));
+                if (price < min || (max !== Infinity && price > max)) {
+                    showCard = false;
+                }
+            }
+
+            if (selectedDuration) {
+                const [min, max] = selectedDuration.split('-').map(v => v === '+' ? Infinity : parseInt(v));
+                if (durationWeeks < min || (max !== Infinity && durationWeeks > max)) {
+                    showCard = false;
+                }
+            }
+
+            card.closest('.col-md-6').style.display = showCard ? 'block' : 'none';
+        });
+    }
+
+    categoryFilter.addEventListener('change', filterCourses);
+    priceFilter.addEventListener('change', filterCourses);
+    durationFilter.addEventListener('change', filterCourses);
+});
+</script>
+{% endblock %} 
