@@ -20,10 +20,9 @@ app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'  # Use strong secret in production
 
 # MongoDB connection
-MONGO_URI = os.getenv('MONGO_URI')  # ✅ Loads from .env
+MONGO_URI = "mongodb+srv://amiteshaptechdwarka123:KYjFyRJO4U43i7Mh@educaation-arena.4nyuro1.mongodb.net/?retryWrites=true&w=majority&appName=Educaation-Arena"
 client = MongoClient(MONGO_URI)
 db = client['elearning_db']
-
 # Default admin user
 default_admin = {
     'name': 'Admin',
