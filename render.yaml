@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: education-arena
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    branch: main
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000  # Or whatever your app listens on
