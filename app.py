@@ -17,25 +17,26 @@ import qrcode
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Change this to a secure secret key in production
+app.secret_key = 'your-secret-key-here'  # Use strong secret in production
 
 # MongoDB connection
-MONGO_URI = os.getenv('MONGO_URI')
+MONGO_URI = os.getenv('MONGO_URI')  # ✅ Loads from .env
 client = MongoClient(MONGO_URI)
 db = client['elearning_db']
-# Create default admin user if none exists
+
+# Default admin user
 default_admin = {
     'name': 'Admin',
     'email': 'admin@example.com',
-    'password': generate_password_hash('admin123', method='pbkdf2:sha256'),  # Specify the hashing method
+    'password': generate_password_hash('admin123', method='pbkdf2:sha256'),
     'role': 'admin',
     'created_at': datetime.now()
 }
 
+# Insert admin if none exists
 if db.users.count_documents({'role': 'admin'}) == 0:
     db.users.insert_one(default_admin)
-    print("Default admin user created!")
-
+    print("✅ Default admin user created!")
 # Stripe setup
 stripe.api_key = 'sk_test_51RLlmnQPDPzjhh2APABaoulnZU3c2dwBY5NrLsfByeqjURQcZsU3W8pkY8lXTSyquCmxhnHx9A19bGtvI33GMzvn00GMRWTnRP'
 STRIPE_PUBLIC_KEY = 'pk_test_51RLlmnQPDPzjhh2A97sZh4EClj862vDFKRuWg4zrwOp0lxlLwqaOmieLoWDBueu2dYgSDdjKKTIVTTRz3eaJpeyS00XPa6ytTM'
